@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using OpenHardwareMonitor.Hardware;
+﻿using System.Windows.Input;
 
 namespace PerformanceMonitor
 {
@@ -12,37 +10,12 @@ namespace PerformanceMonitor
 		public MainWindow()
 		{
 			InitializeComponent();
-
 		}
 
-		private void Window_Loaded(object sender, RoutedEventArgs e)
+		private void MetroWindow_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
-			Computer computer = new Computer
-			{
-				CPUEnabled = true,
-				GPUEnabled = true,
-				RAMEnabled = true,
-				MainboardEnabled = true,
-				HDDEnabled = true,
-				FanControllerEnabled = true
-			};
-			computer.Open();
-
-			NewMethod(computer.Hardware);
-		}
-
-		private void NewMethod(IHardware[] hardwareArray)
-		{
-			foreach (IHardware hardware in hardwareArray)
-			{
-				hardware.Update();
-				textBox.Text += $"\n{hardware.HardwareType}: { hardware.Name}\n";
-				foreach (ISensor sensor in hardware.Sensors)
-				{
-					textBox.Text += $"\t\"{sensor.SensorType}\"\t \"{sensor.Name}\"\t {sensor.Value}\n";
-				}
-				Console.WriteLine();
-			}
+			if (e.ChangedButton == MouseButton.Left)
+				DragMove();
 		}
 	}
 }

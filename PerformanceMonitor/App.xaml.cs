@@ -10,7 +10,11 @@ namespace PerformanceMonitor
 	{
 		public App()
 		{
-			Console.WriteLine(Monitor.Instance.Mainboard.Name);
+		}
+
+		private void Application_Exit(object sender, ExitEventArgs e)
+		{
+			//Monitor.Instance.Dispose();
 		}
 	}
 }
