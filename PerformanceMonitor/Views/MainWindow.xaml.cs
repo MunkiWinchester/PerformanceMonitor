@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace PerformanceMonitor
+namespace PerformanceMonitor.Views
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
