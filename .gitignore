@@ -328,3 +328,8 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/PerformanceMonitor/Resources/Entypo-license.txt
+/PerformanceMonitor/Resources/Entypo.ttf
+/PerformanceMonitor/Resources/Icons.xaml
+/PerformanceMonitor/Resources/IconsNonShared.xaml
+/PerformanceMonitor/Resources/WindowsIcons-license.txt

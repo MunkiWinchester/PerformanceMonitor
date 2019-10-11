@@ -1,120 +1,183 @@
 ﻿<Controls:MetroWindow
+    x:Class="PerformanceMonitor.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-        x:Class="PerformanceMonitor.Views.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        mc:Ignorable="d"
-        BorderThickness="0"
-        SaveWindowPosition="True"
-        ShowTitleBar="True"
-        Height="1040"
-        Width="200"
-        IsWindowDraggable="True"
-        ShowMinButton="False"
-        ShowMaxRestoreButton="False"
-        ShowCloseButton="False"
-        MouseDown="MetroWindow_MouseDown"
-        WindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
-        NonActiveWindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
-        Title="PERFOMANCE MONITOR">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="PERFOMANCE MONITOR"
+    Width="200"
+    Height="1040"
+    BorderThickness="0"
+    IsWindowDraggable="True"
+    MouseDown="MetroWindow_MouseDown"
+    NonActiveWindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
+    SaveWindowPosition="True"
+    ShowCloseButton="False"
+    ShowMaxRestoreButton="False"
+    ShowMinButton="False"
+    ShowTitleBar="false"
+    WindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
+    mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <!-- MAINBOARD -->
-            <RowDefinition Height="auto" />
-            <!-- CPU -->
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="80" />
-            <RowDefinition Height="80" />
-            <RowDefinition Height="80" />
-            <!-- RAM -->
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="70" />
-            <!-- GPU -->
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="80" />
-            <RowDefinition Height="80" />
-            <RowDefinition Height="80" />
-            <RowDefinition Height="80" />
-            <RowDefinition Height="70" />
-            <!-- HDD1 -->
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="25" />
-            <RowDefinition Height="50" />
-            <!-- HDD2 -->
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="25" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            Content="Performance Monitor"
+            Style="{StaticResource Header2}" />
+        <Label Grid.Row="0" Grid.Column="1">
+            <Rectangle
+                Width="15"
+                Height="15"
+                Fill="{Binding RelativeSource={RelativeSource AncestorType=Label}, Path=Foreground}">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list_gear}" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Label>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <!--  MAINBOARD  -->
+                <RowDefinition Height="auto" />
+                <!--  CPU  -->
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="80" />
+                <!--  RAM  -->
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="70" />
+                <!--  GPU  -->
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="70" />
+                <!--  HDD1  -->
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="50" />
+                <!--  HDD2  -->
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
 
-        <Label Content="ASUS STRIX Z270E GAMING" Grid.Row="0"/>
-        <!--#region CPU -->
-        <Label Content="Intel Core i7-6700K" Grid.Row="1"/>
-        <lvc:CartesianChart LegendLocation="None" Grid.Row="2" >
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Load" />
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-        <lvc:CartesianChart LegendLocation="None" Grid.Row="3">
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Clock" />
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-        <lvc:CartesianChart LegendLocation="None" Grid.Row="4">
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Temperature" />
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-        <!--#endregion-->
-        <!--#region RAM -->
-        <Label Content="RAM" Grid.Row="5"/>
-        <lvc:Gauge Grid.Row="6" Grid.Column="0" Margin="5"
-                   From="0" To="32" Value="7"/>
-        <!--#endregion-->
-        <!--#region GPU -->
-        <Label Content="NVIDIA GeForce GTX 1070 Ti" Grid.Row="7"/>
-        <lvc:CartesianChart LegendLocation="None" Grid.Row="8" >
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Load" />
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-        <lvc:CartesianChart LegendLocation="None" Grid.Row="9">
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Clock" />
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-        <lvc:CartesianChart LegendLocation="None" Grid.Row="10">
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Temperature" />
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-        <lvc:CartesianChart LegendLocation="None" Grid.Row="11">
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Fan" />
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-        <lvc:Gauge Grid.Row="12" Grid.Column="0" Margin="5"
-                   From="0" To="8" Value="7"/>
-        <!--#endregion-->
-        <!--#region HDD1 -->
-        <Label Content="TOSHIBA THNSNH256GBST" Grid.Row="13"/>
-        <Controls:MetroProgressBar Grid.Row="14" Minimum="0" Maximum="80" Value="37" Margin="10" />
-        <lvc:CartesianChart LegendLocation="None" Grid.Row="15">
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Sales" />
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-        <!--#endregion-->
-        <!--#region HDD2 -->
-        <Label Content="Samsung SSD 850 EVO 1TB" Grid.Row="16"/>
-        <Controls:MetroProgressBar Grid.Row="17" Minimum="0" Maximum="80" Value="37" Margin="10" />
-        <lvc:CartesianChart LegendLocation="None" Grid.Row="18">
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Sales" />
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-        <!--#endregion-->
+            <Label
+                Grid.Row="0"
+                Content="ASUS STRIX Z270E GAMING"
+                Style="{StaticResource Header}" />
+            <!--#region CPU-->
+            <Label
+                Grid.Row="1"
+                Content="Intel Core i7-6700K"
+                Style="{StaticResource Header}" />
+            <lvc:CartesianChart Grid.Row="2" LegendLocation="None">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Load" />
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+            <lvc:CartesianChart Grid.Row="3" LegendLocation="None">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Clock" />
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+            <lvc:CartesianChart Grid.Row="4" LegendLocation="None">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Temperature" />
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+            <!--#endregion-->
+            <!--#region RAM-->
+            <Label
+                Grid.Row="5"
+                Content="RAM"
+                Style="{StaticResource Header}" />
+            <lvc:Gauge
+                Grid.Row="6"
+                Grid.Column="0"
+                Margin="5"
+                Value="7"
+                From="0"
+                To="32" />
+            <!--#endregion-->
+            <!--#region GPU-->
+            <Label
+                Grid.Row="7"
+                Content="NVIDIA GeForce GTX 1070 Ti"
+                Style="{StaticResource Header}" />
+            <lvc:CartesianChart Grid.Row="8" LegendLocation="None">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Load" />
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+            <lvc:CartesianChart Grid.Row="9" LegendLocation="None">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Clock" />
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+            <lvc:CartesianChart Grid.Row="10" LegendLocation="None">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Temperature" />
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+            <lvc:CartesianChart Grid.Row="11" LegendLocation="None">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Fan" />
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+            <lvc:Gauge
+                Grid.Row="12"
+                Grid.Column="0"
+                Margin="5"
+                Value="7"
+                From="0"
+                To="8" />
+            <!--#endregion-->
+            <!--#region HDD1-->
+            <Label
+                Grid.Row="13"
+                Content="TOSHIBA THNSNH256GBST"
+                Style="{StaticResource Header}" />
+            <Controls:MetroProgressBar
+                Grid.Row="14"
+                Margin="10"
+                Maximum="80"
+                Minimum="0"
+                Value="37" />
+            <lvc:CartesianChart Grid.Row="15" LegendLocation="None">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Sales" />
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+            <!--#endregion-->
+            <!--#region HDD2-->
+            <Label
+                Grid.Row="16"
+                Content="Samsung SSD 850 EVO 1TB"
+                Style="{StaticResource Header}" />
+            <Controls:MetroProgressBar
+                Grid.Row="17"
+                Margin="10"
+                Maximum="80"
+                Minimum="0"
+                Value="37" />
+            <lvc:CartesianChart Grid.Row="18" LegendLocation="None">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Sales" />
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+            <!--#endregion-->
+        </Grid>
     </Grid>
 </Controls:MetroWindow>
