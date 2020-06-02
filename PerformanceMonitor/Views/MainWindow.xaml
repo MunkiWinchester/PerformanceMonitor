@@ -19,6 +19,7 @@
                       ShowMaxRestoreButton="False"
                       ShowMinButton="False"
                       ShowTitleBar="True"
+                      Icon="/PerformanceMonitor;component/Resources/Logo/Image.png"
                       WindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
                       mc:Ignorable="d">
     <Controls:MetroWindow.Resources>
