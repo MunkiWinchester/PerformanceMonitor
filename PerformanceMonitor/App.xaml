@@ -45,6 +45,7 @@
             </Style>
             <Style TargetType="{x:Type lvc:CartesianChart}">
                 <Setter Property="FontFamily" Value="Impact" />
+                <Setter Property="Foreground" Value="{StaticResource IdealForegroundColorBrush}" />
             </Style>
             <Style TargetType="{x:Type lvc:Gauge}">
                 <Setter Property="FontFamily" Value="Impact" />
@@ -52,13 +53,16 @@
                 <Setter Property="ToColor" Value="{StaticResource HighlightColor}" />
                 <Setter Property="Width" Value="100" />
                 <Setter Property="GaugeActiveFill" Value="{StaticResource HighlightBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource IdealForegroundColorBrush}" />
             </Style>
             <Style TargetType="{x:Type lvc:LineSeries}">
                 <Setter Property="Fill" Value="{StaticResource HighlightBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource IdealForegroundColorBrush}" />
             </Style>
             <Style TargetType="{x:Type lvc:Axis}">
                 <Setter Property="ShowLabels" Value="True" />
                 <Setter Property="IsEnabled" Value="True" />
+                <Setter Property="Foreground" Value="{StaticResource IdealForegroundColorBrush}" />
             </Style>
             <Style x:Key="MenuItemStyle" TargetType="{x:Type MenuItem}">
                 <Setter Property="VerticalContentAlignment" Value="Center" />

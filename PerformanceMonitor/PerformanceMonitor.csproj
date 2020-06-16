@@ -141,6 +141,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Business\Helper.cs" />
     <Compile Include="DataObjetcs\Hardware.cs" />
     <Compile Include="Views\Hardware\CPU.xaml.cs">
       <DependentUpon>CPU.xaml</DependentUpon>

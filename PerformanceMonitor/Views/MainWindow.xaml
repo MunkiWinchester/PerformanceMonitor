@@ -14,19 +14,22 @@
                       IsWindowDraggable="True"
                       MouseDown="MetroWindow_MouseDown"
                       NonActiveWindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
-                      SaveWindowPosition="True"
+                      SaveWindowPosition="False"
                       ShowCloseButton="False"
                       ShowMaxRestoreButton="False"
                       ShowMinButton="False"
                       ShowTitleBar="True"
                       Icon="/PerformanceMonitor;component/Resources/Logo/Image.png"
                       WindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
-                      mc:Ignorable="d">
+                      mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <Services:NegatedBooleanConverter x:Key="NegatedBooleanConverter" />
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.Background>
+        <SolidColorBrush Color="Black" Opacity="0.25"/>
+    </Controls:MetroWindow.Background>
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands ShowLastSeparator="False">
             <Label Content="Performance Monitor" Style="{StaticResource Header2}" />

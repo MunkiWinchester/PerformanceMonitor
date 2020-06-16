@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Input;
+using static PerformanceMonitor.Business.Helper;
 
 namespace PerformanceMonitor.Views
 {
@@ -28,6 +29,15 @@ namespace PerformanceMonitor.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            Left = SystemParameters.VirtualScreenLeft;
+            Top = SystemParameters.VirtualScreenTop;
+
+            var position = GetTaskBarLocation();
+            if (position == TaskBarLocation.TOP)
+            {
+                Top = SystemParameters.VirtualScreenTop + SystemParameters.WorkArea.Top;
+            }
         }
 
         private void MetroWindow_MouseDown(object sender, MouseButtonEventArgs e)
@@ -36,7 +46,7 @@ namespace PerformanceMonitor.Views
                 DragMove();
         }
 
-        private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             SetValue(IsInDesignModeProperty, !IsInDesignMode);
         }
