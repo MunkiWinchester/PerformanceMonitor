@@ -52,8 +52,6 @@ namespace PerformanceMonitor.Business
                     }
                 }
             }
-
-            Console.WriteLine();
         }
 
         public static Monitor Instance

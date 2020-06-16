@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using LiveCharts.Configurations;
+using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Input;
 using static PerformanceMonitor.Business.Helper;

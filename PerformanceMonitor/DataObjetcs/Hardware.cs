@@ -134,9 +134,19 @@ namespace PerformanceMonitor.DataObjetcs
 
     public class GPU : ChartHardware, IUpdateable
     {
+        private System.Timers.Timer timer1;
+        public void InitTimer()
+        {
+            timer1 = new System.Timers.Timer();
+            timer1.Elapsed += (sender, args) => Update();
+            timer1.Interval = TimeSpan.FromSeconds(1).TotalMilliseconds; // in miliseconds
+            timer1.Start();
+        }
+
         public GPU(IHardware hardware) : base(hardware)
         {
             Update();
+            InitTimer();
         }
         public ChartValues<ObservableValue> Load { get; set; } = new ChartValues<ObservableValue>();
         public ChartValues<ObservableValue> Temperature { get; set; } = new ChartValues<ObservableValue>();
@@ -163,7 +173,10 @@ namespace PerformanceMonitor.DataObjetcs
                         break;
                     case SensorType.SmallData:
                         if (sensor.Name == "GPU Memory Used")
+                        {
                             MemoryUsed = sensor.Value ?? 0;
+                            HardwareHelper.Queue(sensor.Value ?? 0, MemoryLoad);
+                        }
                         else if (sensor.Name == "GPU Memory Total")
                             MemoryAvailable = sensor.Value ?? 0;
                         break;
@@ -216,8 +229,8 @@ namespace PerformanceMonitor.DataObjetcs
     {
         public static void Queue(float? value, ChartValues<ObservableValue> values)
         {
-            values.Add(new ObservableValue(System.Convert.ToDouble(value)));
-            if (values.Count > 100)
+            values.Add(new ObservableValue(Convert.ToDouble(value)));
+            if (values.Count > 20)
                 values.RemoveAt(0);
         }
 

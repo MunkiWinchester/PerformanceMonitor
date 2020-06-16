@@ -1,58 +1,34 @@
-﻿<UserControl x:Class="PerformanceMonitor.Views.Hardware.HDD"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:PerformanceMonitor.Views.Hardware"
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d">
-    <UserControl.Resources>
-        <DataTemplate x:Key="Historical">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0"
-               Content="Samsung SSD 850 EVO 1TB"
-               Style="{StaticResource Header}" />
-                <Controls:MetroProgressBar Grid.Row="1"
-                                   Margin="10"
-                                   Maximum="80"
-                                   Minimum="0"
-                                   Value="37" />
-                <lvc:CartesianChart Grid.Row="2" LegendLocation="None">
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Sales" />
-                    </lvc:CartesianChart.AxisY>
-                </lvc:CartesianChart>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Key="Design">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0"
-                       Content="Samsung SSD 850 EVO 1TB"
-                       Style="{StaticResource Header}" />
-            </Grid>
-        </DataTemplate>
-    </UserControl.Resources>
+﻿<UserControl
+    x:Class="PerformanceMonitor.Views.Hardware.HDD"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PerformanceMonitor.Views.Hardware"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    mc:Ignorable="d">
     <Grid>
-        <ContentControl>
-            <ContentControl.Style>
-                <Style TargetType="{x:Type ContentControl}">
-                    <Setter Property="ContentTemplate" Value="{StaticResource Historical}" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HDD}}, Path=IsInDesignMode}" Value="True">
-                            <Setter Property="ContentTemplate" Value="{StaticResource Design}" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ContentControl.Style>
-        </ContentControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Label
+            Grid.Row="0"
+            Content="Samsung SSD 850 EVO 1TB"
+            Style="{StaticResource Header}" />
+        <Controls:MetroProgressBar
+            Grid.Row="1"
+            Margin="10"
+            Maximum="80"
+            Minimum="0"
+            Value="37" />
+        <lvc:CartesianChart Grid.Row="2" LegendLocation="None">
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Sales" />
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
     </Grid>
 </UserControl>

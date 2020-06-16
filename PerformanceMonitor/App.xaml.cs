@@ -10,12 +10,12 @@ namespace PerformanceMonitor
     {
         public App()
         {
-            //var clock = Monitor.Instance.CPU.Clock;
+            var clock = Monitor.Instance.GPU.Temperature;
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            //Monitor.Instance.Dispose();
+            Monitor.Instance.Dispose();
         }
     }
 }

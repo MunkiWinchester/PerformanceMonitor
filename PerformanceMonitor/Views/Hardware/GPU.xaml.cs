@@ -1,4 +1,9 @@
-﻿using System.Windows;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using PerformanceMonitor.Business;
+using System;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace PerformanceMonitor.Views.Hardware
@@ -8,25 +13,23 @@ namespace PerformanceMonitor.Views.Hardware
     /// </summary>
     public partial class GPU : UserControl
     {
-        /// <summary>
-        /// DependencyProperty for the progress bar color
-        /// </summary>
-        public static readonly DependencyProperty IsInDesignModeProperty = DependencyProperty.Register(
-            nameof(IsInDesignMode), typeof(bool), typeof(GPU),
-            new PropertyMetadata(false));
-
-        /// <summary>
-        /// Value of the top label
-        /// </summary>
-        public bool IsInDesignMode
-        {
-            get => (bool)GetValue(IsInDesignModeProperty);
-            set => SetValue(IsInDesignModeProperty, value);
-        }
+        public ChartValues<ObservableValue> Load { get; set; }
+        public ChartValues<ObservableValue> Clock { get; set; }
+        public ChartValues<ObservableValue> Temperature { get; set; }
+        public ChartValues<ObservableValue> Fan { get; set; }
+        public ChartValues<ObservableValue> Ram { get; set; }
+        public float RamMax { get; set; }
 
         public GPU()
         {
             InitializeComponent();
+
+            Load = Monitor.Instance.GPU.Load;
+            Clock = Monitor.Instance.GPU.Clock;
+            Temperature = Monitor.Instance.GPU.Temperature;
+            Fan = Monitor.Instance.GPU.Fan;
+            Ram = Monitor.Instance.GPU.MemoryLoad;
+            RamMax = Monitor.Instance.GPU.MemoryAvailable;
         }
     }
 }
