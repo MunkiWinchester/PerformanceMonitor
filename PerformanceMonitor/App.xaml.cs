@@ -10,7 +10,6 @@ namespace PerformanceMonitor
     {
         public App()
         {
-            var clock = Monitor.Instance.GPU.Temperature;
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

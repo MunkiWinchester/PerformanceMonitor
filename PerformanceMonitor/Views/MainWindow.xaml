@@ -87,6 +87,37 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
+                    <MenuItem
+                        Click="MenuItem_AppBar_Click"
+                        IsEnabled="{Binding IsInNormalMode, Converter={StaticResource NegatedBooleanConverter}}"
+                        Style="{StaticResource MenuItemHighlightStyle}">
+                        <MenuItem.Header>
+                            <TextBlock Style="{StaticResource LabelBlockStyle}" Text="Normal" />
+                        </MenuItem.Header>
+                        <MenuItem.Icon>
+                            <Rectangle Style="{StaticResource IconHighlightStyle}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_window_restore}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Click="MenuItem_AppBar_Click"
+                        IsEnabled="{Binding IsInNormalMode}"
+                        Style="{StaticResource MenuItemHighlightStyle}">
+                        <MenuItem.Header>
+                            <TextBlock Style="{StaticResource LabelBlockStyle}" Text="AppBar" />
+                        </MenuItem.Header>
+                        <MenuItem.Icon>
+                            <Rectangle Style="{StaticResource IconHighlightStyle}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_window_simple}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
                     <MenuItem Style="{StaticResource MenuItemStyle}">
                         <MenuItem.Header>
                             <TextBlock Style="{StaticResource LabelBlockStyle}" Text="Settings" />
@@ -95,6 +126,18 @@
                             <Rectangle Style="{StaticResource IconStyle}">
                                 <Rectangle.OpacityMask>
                                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Click="MenuItem_Close_Click" Style="{StaticResource MenuItemStyle}">
+                        <MenuItem.Header>
+                            <TextBlock Style="{StaticResource LabelBlockStyle}" Text="Close" />
+                        </MenuItem.Header>
+                        <MenuItem.Icon>
+                            <Rectangle Style="{StaticResource IconStyle}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_close}" />
                                 </Rectangle.OpacityMask>
                             </Rectangle>
                         </MenuItem.Icon>
