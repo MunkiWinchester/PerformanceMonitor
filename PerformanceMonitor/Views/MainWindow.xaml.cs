@@ -1,9 +1,8 @@
-﻿using LiveCharts.Configurations;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Input;
-using static PerformanceMonitor.Business.Helper;
 using WpfAppBar;
+using static PerformanceMonitor.Business.Helper;
 
 namespace PerformanceMonitor.Views
 {

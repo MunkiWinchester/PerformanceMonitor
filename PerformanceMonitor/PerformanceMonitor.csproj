@@ -126,7 +126,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Hardware\HDD.xaml">
+    <Page Include="Views\Hardware\HDDs.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -147,15 +147,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Business\Helper.cs" />
+    <Compile Include="Converters\PercentageLabelConverter.cs" />
     <Compile Include="DataObjetcs\Hardware.cs" />
+    <Compile Include="ViewModels\HDDs.cs" />
+    <Compile Include="ViewModels\RAM.cs" />
+    <Compile Include="ViewModels\Mainboard.cs" />
+    <Compile Include="ViewModels\CPU.cs" />
+    <Compile Include="ViewModels\GPU.cs" />
     <Compile Include="Views\Hardware\CPU.xaml.cs">
       <DependentUpon>CPU.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Hardware\GPU.xaml.cs">
       <DependentUpon>GPU.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Hardware\HDD.xaml.cs">
-      <DependentUpon>HDD.xaml</DependentUpon>
+    <Compile Include="Views\Hardware\HDDs.xaml.cs">
+      <DependentUpon>HDDs.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Hardware\Mainboard.xaml.cs">
       <DependentUpon>Mainboard.xaml</DependentUpon>

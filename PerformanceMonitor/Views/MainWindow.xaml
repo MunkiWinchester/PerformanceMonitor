@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ha="clr-namespace:PerformanceMonitor.Views.Hardware"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:views="clr-namespace:PerformanceMonitor.Views"
     Width="200"
     Height="1040"
     AllowsTransparency="True"
@@ -19,6 +18,7 @@
     NonActiveWindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
     SaveWindowPosition="False"
     ShowCloseButton="False"
+    ShowInTaskbar="False"
     ShowMaxRestoreButton="False"
     ShowMinButton="False"
     ShowTitleBar="True"
@@ -146,20 +146,15 @@
             </Menu>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <ha:Mainboard Grid.Row="0" />
-        <ha:CPU Grid.Row="1" />
-        <ha:RAM Grid.Row="2" />
-        <ha:GPU Grid.Row="3" />
-        <ha:HDD Grid.Row="4" />
-        <ha:HDD Grid.Row="5" />
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <ha:Mainboard />
+        <Separator />
+        <ha:CPU />
+        <Separator />
+        <ha:GPU Margin="0,0,0,7" />
+        <Separator />
+        <ha:RAM Margin="0,0,0,7" />
+        <Separator />
+        <ha:HDDs />
+    </StackPanel>
 </Controls:MetroWindow>

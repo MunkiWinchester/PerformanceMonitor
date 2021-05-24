@@ -28,6 +28,15 @@ namespace PerformanceMonitor.DataObjetcs
         {
             return _hardware.Name;
         }
+
+        private System.Timers.Timer updateTimer;
+        public void InitTimer(Action update)
+        {
+            updateTimer = new System.Timers.Timer();
+            updateTimer.Elapsed += (sender, args) => update();
+            updateTimer.Interval = TimeSpan.FromSeconds(2).TotalMilliseconds; // in miliseconds
+            updateTimer.Start();
+        }
     }
 
     public class Mainboard : ChartHardware
@@ -61,7 +70,9 @@ namespace PerformanceMonitor.DataObjetcs
             }
             for (int i = 1; i <= coreCount; i++)
                 Cores.Add(new CORE($"CPU Core #{i}"));
+
             Update();
+            InitTimer(() => Update());
         }
         public ObservableCollection<CORE> Cores { get; set; } = new ObservableCollection<CORE>();
         public ChartValues<ObservableValue> Load { get; set; } = new ChartValues<ObservableValue>();
@@ -134,19 +145,10 @@ namespace PerformanceMonitor.DataObjetcs
 
     public class GPU : ChartHardware, IUpdateable
     {
-        private System.Timers.Timer timer1;
-        public void InitTimer()
-        {
-            timer1 = new System.Timers.Timer();
-            timer1.Elapsed += (sender, args) => Update();
-            timer1.Interval = TimeSpan.FromSeconds(1).TotalMilliseconds; // in miliseconds
-            timer1.Start();
-        }
-
         public GPU(IHardware hardware) : base(hardware)
         {
             Update();
-            InitTimer();
+            InitTimer(() => Update());
         }
         public ChartValues<ObservableValue> Load { get; set; } = new ChartValues<ObservableValue>();
         public ChartValues<ObservableValue> Temperature { get; set; } = new ChartValues<ObservableValue>();
@@ -203,8 +205,8 @@ namespace PerformanceMonitor.DataObjetcs
         {
             Update();
         }
-        public ChartValues<ObservableValue> Load { get; set; } = new ChartValues<ObservableValue>();
-        public ChartValues<ObservableValue> Temperature { get; set; } = new ChartValues<ObservableValue>();
+        public float Load { get; set; }
+        public float Temperature { get; set; }
 
         public void Update()
         {
@@ -215,10 +217,10 @@ namespace PerformanceMonitor.DataObjetcs
                 switch (sensor.SensorType)
                 {
                     case SensorType.Temperature:
-                        HardwareHelper.Queue(sensor.Value, Temperature);
+                        Temperature = sensor.Value ?? 0;
                         break;
                     case SensorType.Load:
-                        HardwareHelper.Queue(sensor.Value, Load);
+                        Load = sensor.Value ?? 0;
                         break;
                 }
             }
@@ -230,7 +232,7 @@ namespace PerformanceMonitor.DataObjetcs
         public static void Queue(float? value, ChartValues<ObservableValue> values)
         {
             values.Add(new ObservableValue(Convert.ToDouble(value)));
-            if (values.Count > 20)
+            if (values.Count > 25)
                 values.RemoveAt(0);
         }
 

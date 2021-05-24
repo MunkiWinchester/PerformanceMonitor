@@ -30,7 +30,7 @@ namespace PerformanceMonitor.Business
 
             foreach (IHardware hardware in _computer.Hardware)
             {
-                if (hardware.Sensors.Any() || hardware.HardwareType ==  HardwareType.Mainboard)
+                if (hardware.Sensors.Any() || hardware.HardwareType == HardwareType.Mainboard)
                 {
                     switch (hardware.HardwareType)
                     {

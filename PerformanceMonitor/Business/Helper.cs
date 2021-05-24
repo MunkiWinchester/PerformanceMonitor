@@ -28,5 +28,12 @@ namespace PerformanceMonitor.Business
             }
             return taskBarLocation;
         }
+
+        public static string FormatRamLabel(double value)
+        {
+            if (value == 0)
+                return "0 GB";
+            return $"{value:N2} GB";
+        }
     }
 }
