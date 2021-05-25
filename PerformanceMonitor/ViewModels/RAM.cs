@@ -55,10 +55,27 @@ namespace PerformanceMonitor.ViewModels
         public RAM()
         {
             Formatter = value => Helper.FormatRamLabel(value);
+
             DeviceName = Monitor.Instance.RAM.Name;
             Load = Monitor.Instance.RAM.Load;
             Ram = Monitor.Instance.RAM.MemoryUsed;
             RamMax = Monitor.Instance.RAM.MemoryAvailable + Monitor.Instance.RAM.MemoryUsed;
+
+            Monitor.Instance.RAM.PropertyChanged += RAM_PropertyChanged;
+        }
+
+        private void RAM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(DataObjetcs.RAM.MemoryUsed):
+                    Ram = Monitor.Instance.RAM.MemoryUsed;
+                    RamMax = Monitor.Instance.RAM.MemoryAvailable + Monitor.Instance.RAM.MemoryUsed;
+                    break;
+                case nameof(DataObjetcs.RAM.MemoryAvailable):
+                    RamMax = Monitor.Instance.RAM.MemoryAvailable + Monitor.Instance.RAM.MemoryUsed;
+                    break;
+            }
         }
     }
 }

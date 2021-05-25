@@ -34,7 +34,7 @@ namespace PerformanceMonitor.DataObjetcs
         {
             updateTimer = new System.Timers.Timer();
             updateTimer.Elapsed += (sender, args) => update();
-            updateTimer.Interval = TimeSpan.FromSeconds(2).TotalMilliseconds; // in miliseconds
+            updateTimer.Interval = TimeSpan.FromSeconds(1.5).TotalMilliseconds; // in miliseconds
             updateTimer.Start();
         }
     }
@@ -113,13 +113,33 @@ namespace PerformanceMonitor.DataObjetcs
 
     public class RAM : ChartHardware, IUpdateable
     {
+        private float memoryUsed;
+        private float memoryAvailable;
+
         public RAM(IHardware hardware) : base(hardware)
         {
             Update();
+            InitTimer(() => Update());
         }
         public ChartValues<ObservableValue> Load { get; set; } = new ChartValues<ObservableValue>();
-        public float MemoryUsed { get; set; }
-        public float MemoryAvailable { get; set; }
+        public float MemoryUsed
+        {
+            get => memoryUsed;
+            set
+            {
+                memoryUsed = value;
+                OnPropertyChanged();
+            }
+        }
+        public float MemoryAvailable
+        {
+            get => memoryAvailable;
+            set
+            {
+                memoryAvailable = value;
+                OnPropertyChanged();
+            }
+        }
 
         public void Update()
         {
@@ -145,6 +165,9 @@ namespace PerformanceMonitor.DataObjetcs
 
     public class GPU : ChartHardware, IUpdateable
     {
+        private float memoryUsed;
+        private float memoryAvailable;
+
         public GPU(IHardware hardware) : base(hardware)
         {
             Update();
@@ -154,8 +177,24 @@ namespace PerformanceMonitor.DataObjetcs
         public ChartValues<ObservableValue> Temperature { get; set; } = new ChartValues<ObservableValue>();
         public ChartValues<ObservableValue> Clock { get; set; } = new ChartValues<ObservableValue>();
         public ChartValues<ObservableValue> Fan { get; set; } = new ChartValues<ObservableValue>();
-        public float MemoryUsed { get; set; }
-        public float MemoryAvailable { get; set; }
+        public float MemoryUsed
+        {
+            get => memoryUsed;
+            set
+            {
+                memoryUsed = value;
+                OnPropertyChanged();
+            }
+        }
+        public float MemoryAvailable
+        {
+            get => memoryAvailable;
+            set
+            {
+                memoryAvailable = value;
+                OnPropertyChanged();
+            }
+        }
         public ChartValues<ObservableValue> MemoryLoad { get; set; } = new ChartValues<ObservableValue>();
         public ChartValues<ObservableValue> MemoryClock { get; set; } = new ChartValues<ObservableValue>();
 
@@ -201,12 +240,32 @@ namespace PerformanceMonitor.DataObjetcs
 
     public class HDD : ChartHardware, IUpdateable
     {
+        private float load;
+        private float temperature;
+
         public HDD(IHardware hardware) : base(hardware)
         {
             Update();
+            InitTimer(() => Update());
         }
-        public float Load { get; set; }
-        public float Temperature { get; set; }
+        public float Load
+        {
+            get => load;
+            set
+            {
+                load = value;
+                OnPropertyChanged();
+            }
+        }
+        public float Temperature
+        {
+            get => temperature;
+            set
+            {
+                temperature = value;
+                OnPropertyChanged();
+            }
+        }
 
         public void Update()
         {

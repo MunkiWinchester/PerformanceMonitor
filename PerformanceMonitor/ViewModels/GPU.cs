@@ -58,6 +58,7 @@ namespace PerformanceMonitor.ViewModels
         public GPU()
         {
             Formatter = value => Helper.FormatRamLabel(value);
+
             DeviceName = Monitor.Instance.GPU.Name?.Replace("NVIDIA ", "");
             Load = Monitor.Instance.GPU.Load;
             Clock = Monitor.Instance.GPU.Clock;
@@ -65,6 +66,21 @@ namespace PerformanceMonitor.ViewModels
             Fan = Monitor.Instance.GPU.Fan;
             Ram = Monitor.Instance.GPU.MemoryUsed;
             RamMax = Monitor.Instance.GPU.MemoryAvailable;
+
+            Monitor.Instance.GPU.PropertyChanged += GPU_PropertyChanged;
+        }
+
+        private void GPU_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(DataObjetcs.GPU.MemoryUsed):
+                    Ram = Monitor.Instance.GPU.MemoryUsed;
+                    break;
+                case nameof(DataObjetcs.GPU.MemoryAvailable):
+                    RamMax = Monitor.Instance.GPU.MemoryAvailable;
+                    break;
+            }
         }
     }
 }
