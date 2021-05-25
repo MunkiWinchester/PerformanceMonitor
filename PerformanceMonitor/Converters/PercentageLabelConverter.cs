@@ -9,15 +9,10 @@ namespace PerformanceMonitor.Converters
         {
             if (value is float percentage)
             {
-                var calcPerc = percentage;
-                if (percentage > 1)
-                {
-                    calcPerc = percentage / 100;
-                }
-                return $"Used: {calcPerc:P2}";
+                return $"{parameter}: {percentage:N2}%";
             }
 
-            return "Used: n/a";
+            return $"{parameter}: n/a";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

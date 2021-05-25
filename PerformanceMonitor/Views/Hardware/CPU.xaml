@@ -2,6 +2,7 @@
     x:Class="PerformanceMonitor.Views.Hardware.CPU"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:PerformanceMonitor.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,19 +11,27 @@
     <UserControl.DataContext>
         <viewModels:CPU />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <converters:PercentageLabelConverter x:Key="PercentageLabelConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="80" />
-            <!--<RowDefinition Height="80" />-->
+            <RowDefinition Height="auto" />
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
         <Label
             Grid.Row="0"
             Content="{Binding DeviceName}"
             Style="{StaticResource Header}" />
-        <lvc:CartesianChart
+        <Label
             Grid.Row="1"
+            Content="{Binding CurrentLoad, Converter={StaticResource PercentageLabelConverter}, ConverterParameter=Load}"
+            Style="{StaticResource Value}" />
+        <lvc:CartesianChart
+            Grid.Row="2"
             DataTooltip="{x:Null}"
             Hoverable="False"
             LegendLocation="None">
@@ -34,7 +43,7 @@
                     Values="{Binding Load}" />
             </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Load" MaxValue="100" />
+                <lvc:Axis Title="" MaxValue="100" />
             </lvc:CartesianChart.AxisY>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis
@@ -43,26 +52,13 @@
                     ShowLabels="False" />
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
-        <!--<lvc:CartesianChart Grid.Row="2" Hoverable="False" DataTooltip="{x:Null}" LegendLocation="None">
-            <lvc:CartesianChart.Series>
-                <lvc:LineSeries
-                    Fill="Transparent"
-                    PointGeometry="{x:Null}"
-                    Stroke="{StaticResource HighlightBrush}"
-                    Values="{Binding Clock}" />
-            </lvc:CartesianChart.Series>
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Clock" />
-            </lvc:CartesianChart.AxisY>
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis
-                    LabelFormatter="{x:Null}"
-                    MaxValue="20"
-                    ShowLabels="False" />
-            </lvc:CartesianChart.AxisX>
-        </lvc:CartesianChart>-->
+        <Label
+            Grid.Row="3"
+            Content="{Binding CurrentTemp}"
+            ContentStringFormat="Temp: {0}°C"
+            Style="{StaticResource Value}" />
         <lvc:CartesianChart
-            Grid.Row="2"
+            Grid.Row="4"
             DataTooltip="{x:Null}"
             Hoverable="False"
             LegendLocation="None">
@@ -74,7 +70,7 @@
                     Values="{Binding Temperature}" />
             </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Temperature" />
+                <lvc:Axis Title="" />
             </lvc:CartesianChart.AxisY>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis

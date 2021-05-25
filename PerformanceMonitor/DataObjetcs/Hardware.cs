@@ -19,6 +19,8 @@ namespace PerformanceMonitor.DataObjetcs
 
         protected readonly IHardware _hardware;
 
+        private System.Timers.Timer updateTimer;
+
         public ChartHardware(IHardware hardware)
         {
             _hardware = hardware;
@@ -29,7 +31,6 @@ namespace PerformanceMonitor.DataObjetcs
             return _hardware.Name;
         }
 
-        private System.Timers.Timer updateTimer;
         public void InitTimer(Action update)
         {
             updateTimer = new System.Timers.Timer();
@@ -47,37 +48,65 @@ namespace PerformanceMonitor.DataObjetcs
     public class CORE
     {
         public string Name { get; private set; }
+        public ChartValues<ObservableValue> Load { get; set; } = new ChartValues<ObservableValue>();
+        public ChartValues<ObservableValue> Temperature { get; set; } = new ChartValues<ObservableValue>();
+        public ChartValues<ObservableValue> Clock { get; set; } = new ChartValues<ObservableValue>();
+
         public CORE(string name)
         {
             Name = name;
         }
-        public ChartValues<ObservableValue> Load { get; set; } = new ChartValues<ObservableValue>();
-        public ChartValues<ObservableValue> Temperature { get; set; } = new ChartValues<ObservableValue>();
-        public ChartValues<ObservableValue> Clock { get; set; } = new ChartValues<ObservableValue>();
     }
 
     public class CPU : ChartHardware, IUpdateable
     {
-        public CPU(IHardware hardware) : base(hardware)
-        {
-            int coreCount = 0;
-            using (var processor = new System.Management.ManagementObjectSearcher("Select * from Win32_Processor"))
-            {
-                foreach (var item in processor.Get())
-                {
-                    coreCount += int.Parse(item["NumberOfCores"].ToString());
-                }
-            }
-            for (int i = 1; i <= coreCount; i++)
-                Cores.Add(new CORE($"CPU Core #{i}"));
-
-            Update();
-            InitTimer(() => Update());
-        }
         public ObservableCollection<CORE> Cores { get; set; } = new ObservableCollection<CORE>();
         public ChartValues<ObservableValue> Load { get; set; } = new ChartValues<ObservableValue>();
         public ChartValues<ObservableValue> Temperature { get; set; } = new ChartValues<ObservableValue>();
         public ChartValues<ObservableValue> Clock { get; set; } = new ChartValues<ObservableValue>();
+        public float CurrentLoad
+        {
+            get { return currentLoad; }
+            set
+            {
+                currentLoad = value;
+                OnPropertyChanged();
+            }
+        }
+        public float CurrentTemp
+        {
+            get { return currentTemp; }
+            set
+            {
+                currentTemp = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private readonly bool coresEnabled;
+        private float currentLoad;
+        private float currentTemp;
+
+        public CPU(IHardware hardware, bool coresEnabled = false) : base(hardware)
+        {
+            this.coresEnabled = coresEnabled;
+            if (this.coresEnabled)
+            {
+                int coreCount = 0;
+                using (var processor = new System.Management.ManagementObjectSearcher("Select * from Win32_Processor"))
+                {
+                    foreach (var item in processor.Get())
+                    {
+                        coreCount += int.Parse(item["NumberOfCores"].ToString());
+                    }
+                }
+                for (int i = 1; i <= coreCount; i++)
+                    Cores.Add(new CORE($"CPU Core #{i}"));
+            }
+
+            Update();
+            InitTimer(() => Update());
+        }
 
         public void Update()
         {
@@ -90,6 +119,7 @@ namespace PerformanceMonitor.DataObjetcs
                     case SensorType.Load:
                         if (sensor.Name == "CPU Total")
                             HardwareHelper.Queue(sensor.Value, Load);
+                        CurrentLoad = sensor.Value ?? 0;
                         break;
                     case SensorType.Clock:
                         if (sensor.Name == "Bus Speed")
@@ -97,10 +127,14 @@ namespace PerformanceMonitor.DataObjetcs
                         break;
                     case SensorType.Temperature:
                         if (sensor.Name == "CPU Package")
+                        {
                             HardwareHelper.Queue(sensor.Value, Temperature);
+                            CurrentTemp = sensor.Value ?? 0;
+                        }
                         break;
                 }
-                UpdateCoreValues(sensor);
+                if (coresEnabled)
+                    UpdateCoreValues(sensor);
             }
         }
 
@@ -113,14 +147,6 @@ namespace PerformanceMonitor.DataObjetcs
 
     public class RAM : ChartHardware, IUpdateable
     {
-        private float memoryUsed;
-        private float memoryAvailable;
-
-        public RAM(IHardware hardware) : base(hardware)
-        {
-            Update();
-            InitTimer(() => Update());
-        }
         public ChartValues<ObservableValue> Load { get; set; } = new ChartValues<ObservableValue>();
         public float MemoryUsed
         {
@@ -139,6 +165,15 @@ namespace PerformanceMonitor.DataObjetcs
                 memoryAvailable = value;
                 OnPropertyChanged();
             }
+        }
+
+        private float memoryUsed;
+        private float memoryAvailable;
+
+        public RAM(IHardware hardware) : base(hardware)
+        {
+            Update();
+            InitTimer(() => Update());
         }
 
         public void Update()
@@ -165,18 +200,12 @@ namespace PerformanceMonitor.DataObjetcs
 
     public class GPU : ChartHardware, IUpdateable
     {
-        private float memoryUsed;
-        private float memoryAvailable;
-
-        public GPU(IHardware hardware) : base(hardware)
-        {
-            Update();
-            InitTimer(() => Update());
-        }
         public ChartValues<ObservableValue> Load { get; set; } = new ChartValues<ObservableValue>();
         public ChartValues<ObservableValue> Temperature { get; set; } = new ChartValues<ObservableValue>();
         public ChartValues<ObservableValue> Clock { get; set; } = new ChartValues<ObservableValue>();
         public ChartValues<ObservableValue> Fan { get; set; } = new ChartValues<ObservableValue>();
+        public ChartValues<ObservableValue> MemoryLoad { get; set; } = new ChartValues<ObservableValue>();
+        public ChartValues<ObservableValue> MemoryClock { get; set; } = new ChartValues<ObservableValue>();
         public float MemoryUsed
         {
             get => memoryUsed;
@@ -195,8 +224,45 @@ namespace PerformanceMonitor.DataObjetcs
                 OnPropertyChanged();
             }
         }
-        public ChartValues<ObservableValue> MemoryLoad { get; set; } = new ChartValues<ObservableValue>();
-        public ChartValues<ObservableValue> MemoryClock { get; set; } = new ChartValues<ObservableValue>();
+        public float CurrentLoad
+        {
+            get { return currentLoad; }
+            set
+            {
+                currentLoad = value;
+                OnPropertyChanged();
+            }
+        }
+        public float CurrentTemp
+        {
+            get { return currentTemp; }
+            set
+            {
+                currentTemp = value;
+                OnPropertyChanged();
+            }
+        }
+        public float CurrentFan
+        {
+            get { return currentFan; }
+            set
+            {
+                currentFan = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private float memoryUsed;
+        private float memoryAvailable;
+        private float currentLoad;
+        private float currentTemp;
+        private float currentFan;
+
+        public GPU(IHardware hardware) : base(hardware)
+        {
+            Update();
+            InitTimer(() => Update());
+        }
 
         public void Update()
         {
@@ -208,7 +274,10 @@ namespace PerformanceMonitor.DataObjetcs
                 {
                     case SensorType.Load:
                         if (sensor.Name == "GPU Core")
+                        {
                             HardwareHelper.Queue(sensor.Value, Load);
+                            CurrentLoad = sensor.Value ?? 0;
+                        }
                         else if (sensor.Name == "GPU Memory Total")
                             HardwareHelper.Queue(sensor.Value, MemoryLoad);
                         break;
@@ -229,9 +298,11 @@ namespace PerformanceMonitor.DataObjetcs
                         break;
                     case SensorType.Fan:
                         HardwareHelper.Queue(sensor.Value, Fan);
+                        CurrentFan = sensor.Value ?? 0;
                         break;
                     case SensorType.Temperature:
                         HardwareHelper.Queue(sensor.Value, Temperature);
+                        CurrentTemp = sensor.Value ?? 0;
                         break;
                 }
             }
@@ -240,14 +311,6 @@ namespace PerformanceMonitor.DataObjetcs
 
     public class HDD : ChartHardware, IUpdateable
     {
-        private float load;
-        private float temperature;
-
-        public HDD(IHardware hardware) : base(hardware)
-        {
-            Update();
-            InitTimer(() => Update());
-        }
         public float Load
         {
             get => load;
@@ -265,6 +328,15 @@ namespace PerformanceMonitor.DataObjetcs
                 temperature = value;
                 OnPropertyChanged();
             }
+        }
+
+        private float load;
+        private float temperature;
+
+        public HDD(IHardware hardware) : base(hardware)
+        {
+            Update();
+            InitTimer(() => Update());
         }
 
         public void Update()

@@ -11,13 +11,14 @@ namespace PerformanceMonitor.ViewModels
         private float ram;
         private float ramMax;
         private string deviceName;
-        private Func<double, string> formatter;
+        private float currentLoad;
+        private float currentTemp;
+        private float currentFan;
 
         public ChartValues<ObservableValue> Load { get; set; }
         public ChartValues<ObservableValue> Clock { get; set; }
         public ChartValues<ObservableValue> Temperature { get; set; }
         public ChartValues<ObservableValue> Fan { get; set; }
-        //public ChartValues<ObservableValue> Ram { get; set; }
         public float Ram
         {
             get => ram;
@@ -45,20 +46,36 @@ namespace PerformanceMonitor.ViewModels
                 OnPropertyChanged();
             }
         }
-        public Func<double, string> Formatter
+        public float CurrentLoad
         {
-            get => formatter;
+            get { return currentLoad; }
             set
             {
-                formatter = value;
+                currentLoad = value;
+                OnPropertyChanged();
+            }
+        }
+        public float CurrentTemp
+        {
+            get { return currentTemp; }
+            set
+            {
+                currentTemp = value;
+                OnPropertyChanged();
+            }
+        }
+        public float CurrentFan
+        {
+            get { return currentFan; }
+            set
+            {
+                currentFan = value;
                 OnPropertyChanged();
             }
         }
 
         public GPU()
         {
-            Formatter = value => Helper.FormatRamLabel(value);
-
             DeviceName = Monitor.Instance.GPU.Name?.Replace("NVIDIA ", "");
             Load = Monitor.Instance.GPU.Load;
             Clock = Monitor.Instance.GPU.Clock;
@@ -66,6 +83,9 @@ namespace PerformanceMonitor.ViewModels
             Fan = Monitor.Instance.GPU.Fan;
             Ram = Monitor.Instance.GPU.MemoryUsed;
             RamMax = Monitor.Instance.GPU.MemoryAvailable;
+            CurrentTemp = Monitor.Instance.GPU.CurrentTemp;
+            CurrentLoad = Monitor.Instance.GPU.CurrentLoad;
+            CurrentFan = Monitor.Instance.GPU.CurrentFan;
 
             Monitor.Instance.GPU.PropertyChanged += GPU_PropertyChanged;
         }
@@ -79,6 +99,15 @@ namespace PerformanceMonitor.ViewModels
                     break;
                 case nameof(DataObjetcs.GPU.MemoryAvailable):
                     RamMax = Monitor.Instance.GPU.MemoryAvailable;
+                    break;
+                case nameof(DataObjetcs.GPU.CurrentLoad):
+                    CurrentLoad = Monitor.Instance.GPU.CurrentLoad;
+                    break;
+                case nameof(DataObjetcs.GPU.CurrentTemp):
+                    CurrentTemp = Monitor.Instance.GPU.CurrentTemp;
+                    break;
+                case nameof(DataObjetcs.GPU.CurrentFan):
+                    CurrentFan = Monitor.Instance.GPU.CurrentFan;
                     break;
             }
         }

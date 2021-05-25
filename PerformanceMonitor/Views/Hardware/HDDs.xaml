@@ -28,7 +28,7 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Label
@@ -44,11 +44,11 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             HorizontalAlignment="Right"
-                            Content="{Binding Load, Converter={StaticResource PercentageLabelConverter}}" />
+                            Content="{Binding Load, Converter={StaticResource PercentageLabelConverter}, ConverterParameter=Used}" />
                         <ProgressBar
                             Grid.Row="2"
                             Grid.ColumnSpan="2"
-                            Margin="5,5,5,10"
+                            Margin="5,0,5,10"
                             Maximum="100"
                             Minimum="0"
                             Value="{Binding Load}" />

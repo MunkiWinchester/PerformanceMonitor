@@ -6,7 +6,9 @@
     xmlns:Services="clr-namespace:WpfUtility.Services;assembly=WpfUtility"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ha="clr-namespace:PerformanceMonitor.Views.Hardware"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:PerformanceMonitor.Views"
     Width="200"
     Height="1040"
     AllowsTransparency="True"
@@ -47,14 +49,7 @@
                     Height="25"
                     Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
-                        <Rectangle
-                            Width="15"
-                            Height="15"
-                            Fill="{StaticResource LabelTextBrush}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_lines_horizontal_4}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
+                        <iconPacks:PackIconMaterialDesign Kind="Menu" />
                     </MenuItem.Icon>
                     <MenuItem
                         Click="MenuItem_Click"
@@ -64,11 +59,7 @@
                             <TextBlock Style="{StaticResource LabelBlockStyle}" Text="Design" />
                         </MenuItem.Header>
                         <MenuItem.Icon>
-                            <Rectangle Style="{StaticResource IconHighlightStyle}">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_graph_bar}" />
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
+                            <iconPacks:PackIconMaterialDesign Kind="List" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem
@@ -79,11 +70,7 @@
                             <TextBlock Style="{StaticResource LabelBlockStyle}" Text="Historical" />
                         </MenuItem.Header>
                         <MenuItem.Icon>
-                            <Rectangle Style="{StaticResource IconHighlightStyle}">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_graph_line}" />
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
+                            <iconPacks:PackIconMaterialDesign Kind="ShowChart" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
@@ -95,11 +82,7 @@
                             <TextBlock Style="{StaticResource LabelBlockStyle}" Text="Normal" />
                         </MenuItem.Header>
                         <MenuItem.Icon>
-                            <Rectangle Style="{StaticResource IconHighlightStyle}">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_window_restore}" />
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
+                            <iconPacks:PackIconMaterialDesign Kind="DesktopWindows" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem
@@ -110,11 +93,7 @@
                             <TextBlock Style="{StaticResource LabelBlockStyle}" Text="AppBar" />
                         </MenuItem.Header>
                         <MenuItem.Icon>
-                            <Rectangle Style="{StaticResource IconHighlightStyle}">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_window_simple}" />
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
+                            <iconPacks:PackIconMaterialDesign Kind="Dock" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
@@ -123,11 +102,7 @@
                             <TextBlock Style="{StaticResource LabelBlockStyle}" Text="Settings" />
                         </MenuItem.Header>
                         <MenuItem.Icon>
-                            <Rectangle Style="{StaticResource IconStyle}">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
+                            <iconPacks:PackIconMaterialDesign Kind="Settings" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Click="MenuItem_Close_Click" Style="{StaticResource MenuItemStyle}">
@@ -135,11 +110,7 @@
                             <TextBlock Style="{StaticResource LabelBlockStyle}" Text="Close" />
                         </MenuItem.Header>
                         <MenuItem.Icon>
-                            <Rectangle Style="{StaticResource IconStyle}">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_close}" />
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
+                            <iconPacks:PackIconMaterialDesign Kind="Close" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
@@ -147,13 +118,15 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     <StackPanel Orientation="Vertical">
+        <views:Clock Margin="0,15,0,0" HorizontalAlignment="Center" />
+        <Separator Margin="0,0,0,5" />
         <ha:Mainboard />
         <Separator />
         <ha:CPU />
         <Separator />
-        <ha:GPU Margin="0,0,0,7" />
-        <Separator />
         <ha:RAM Margin="0,0,0,7" />
+        <Separator />
+        <ha:GPU Margin="0,0,0,7" />
         <Separator />
         <ha:HDDs />
     </StackPanel>
