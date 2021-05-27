@@ -66,6 +66,7 @@
             </Style>
             <Style TargetType="{x:Type lvc:LineSeries}">
                 <Setter Property="Fill" Value="{StaticResource HighlightBrush}" />
+                <Setter Property="LineSmoothness" Value="0.1" />
                 <Setter Property="Foreground" Value="{StaticResource IdealForegroundColorBrush}" />
             </Style>
             <Style TargetType="{x:Type lvc:Axis}">

@@ -35,7 +35,7 @@ namespace PerformanceMonitor.DataObjetcs
         {
             updateTimer = new System.Timers.Timer();
             updateTimer.Elapsed += (sender, args) => update();
-            updateTimer.Interval = TimeSpan.FromSeconds(1.5).TotalMilliseconds; // in miliseconds
+            updateTimer.Interval = TimeSpan.FromSeconds(1).TotalMilliseconds; // in miliseconds
             updateTimer.Start();
         }
     }
