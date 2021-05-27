@@ -26,6 +26,7 @@
                 <Setter Property="FontFamily" Value="Global User Interface" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="{StaticResource IdealForegroundColorBrush}" />
             </Style>
             <Style
                 x:Key="Header"
