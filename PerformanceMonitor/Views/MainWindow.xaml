@@ -51,7 +51,7 @@
                     <MenuItem.Icon>
                         <iconPacks:PackIconMaterialDesign Kind="Menu" />
                     </MenuItem.Icon>
-                    <MenuItem
+                    <!--<MenuItem
                         Click="MenuItem_Click"
                         IsEnabled="{Binding IsInDesignMode, Converter={StaticResource NegatedBooleanConverter}}"
                         Style="{StaticResource MenuItemHighlightStyle}">
@@ -61,7 +61,7 @@
                         <MenuItem.Icon>
                             <iconPacks:PackIconMaterialDesign Kind="List" />
                         </MenuItem.Icon>
-                    </MenuItem>
+                    </MenuItem>-->
                     <MenuItem
                         Click="MenuItem_Click"
                         IsEnabled="{Binding IsInDesignMode}"
@@ -97,14 +97,22 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Style="{StaticResource MenuItemStyle}">
+                    <MenuItem
+                        IsCheckable="True"
+                        IsChecked="{Binding AlwaysTopMost}"
+                        Style="{StaticResource MenuItemStyle}">
+                        <MenuItem.Header>
+                            <TextBlock Style="{StaticResource LabelBlockStyle}" Text="Top Most" />
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <!--<MenuItem Style="{StaticResource MenuItemStyle}">
                         <MenuItem.Header>
                             <TextBlock Style="{StaticResource LabelBlockStyle}" Text="Settings" />
                         </MenuItem.Header>
                         <MenuItem.Icon>
                             <iconPacks:PackIconMaterialDesign Kind="Settings" />
                         </MenuItem.Icon>
-                    </MenuItem>
+                    </MenuItem>-->
                     <MenuItem Click="MenuItem_Close_Click" Style="{StaticResource MenuItemStyle}">
                         <MenuItem.Header>
                             <TextBlock Style="{StaticResource LabelBlockStyle}" Text="Close" />

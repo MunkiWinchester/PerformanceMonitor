@@ -56,6 +56,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ByteSize, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ByteSize.2.0.0\lib\net45\ByteSize.dll</HintPath>
+    </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
     </Reference>
@@ -155,6 +158,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Business\Helper.cs" />
+    <Compile Include="Converters\ByteSizeLabelConverter.cs" />
     <Compile Include="Converters\PercentageLabelConverter.cs" />
     <Compile Include="DataObjetcs\Hardware.cs" />
     <Compile Include="ViewModels\Clock.cs" />
