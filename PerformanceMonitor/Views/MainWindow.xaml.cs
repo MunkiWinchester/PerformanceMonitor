@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using System;
 using System.Windows;
 using System.Windows.Input;
 using WpfAppBar;
@@ -63,14 +64,13 @@ namespace PerformanceMonitor.Views
         {
             InitializeComponent();
 
-
             Left = SystemParameters.VirtualScreenLeft;
-            Top = SystemParameters.VirtualScreenTop;
+            Top = SystemParameters.VirtualScreenHeight - Math.Abs(SystemParameters.VirtualScreenTop) - Height;
 
             var position = GetTaskBarLocation();
-            if (position == TaskBarLocation.TOP)
+            if (position == TaskBarLocation.BOTTOM)
             {
-                Top = SystemParameters.VirtualScreenTop + SystemParameters.WorkArea.Top;
+                Top += SystemParameters.WorkArea.Bottom;
             }
         }
 
@@ -90,7 +90,7 @@ namespace PerformanceMonitor.Views
             SetValue(IsInNormalModeProperty, !IsInNormalMode);
             if (!IsInNormalMode)
             {
-                AppBarFunctions.SetAppBar(this, ABEdge.Left);
+                AppBarFunctions.SetAppBar(this, ABEdge.Bottom);
             }
             else
             {

@@ -23,28 +23,21 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="80" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="80" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Label
             Grid.Row="0"
-            Grid.ColumnSpan="3"
             Content="{Binding DeviceName}"
             Style="{StaticResource Header}" />
         <Label
             Grid.Row="1"
-            Grid.ColumnSpan="3"
             Content="{Binding CurrentLoad, Converter={StaticResource PercentageLabelConverter}, ConverterParameter=Load}"
             Style="{StaticResource Value}" />
         <lvc:CartesianChart
             Grid.Row="2"
-            Grid.ColumnSpan="3"
             DataTooltip="{x:Null}"
             Hoverable="False"
             LegendLocation="None">
@@ -67,13 +60,11 @@
         </lvc:CartesianChart>
         <Label
             Grid.Row="3"
-            Grid.ColumnSpan="3"
             Content="{Binding CurrentTemp}"
             ContentStringFormat="Temp: {0}°C"
             Style="{StaticResource Value}" />
         <lvc:CartesianChart
             Grid.Row="4"
-            Grid.ColumnSpan="4"
             DataTooltip="{x:Null}"
             Hoverable="False"
             LegendLocation="None">
@@ -95,14 +86,16 @@
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
         <Label
-            Grid.Row="5"
-            Grid.ColumnSpan="3"
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="5,0,0,0"
             Content="{Binding CurrentFan}"
             ContentStringFormat="Fan: {0} RPM"
             Style="{StaticResource Value}" />
         <lvc:CartesianChart
-            Grid.Row="6"
-            Grid.ColumnSpan="3"
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="5,0,0,0"
             DataTooltip="{x:Null}"
             Hoverable="False"
             LegendLocation="None">
@@ -123,26 +116,42 @@
                     ShowLabels="False" />
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
-        <Label
-            Grid.Row="7"
-            Grid.Column="0"
-            HorizontalAlignment="Left"
-            Content="{Binding Ram, Converter={StaticResource ByteSizeLabelConverter}}" />
-        <Label
-            Grid.Row="7"
+        <Grid
+            Grid.Row="3"
+            Grid.RowSpan="2"
             Grid.Column="1"
-            HorizontalAlignment="Center"
-            Content="/" />
-        <Label
-            Grid.Row="7"
-            Grid.Column="2"
-            HorizontalAlignment="Right"
-            Content="{Binding RamMax, Converter={StaticResource ByteSizeLabelConverter}}" />
-        <ProgressBar
-            Grid.Row="8"
-            Grid.ColumnSpan="3"
-            Maximum="{Binding RamMax}"
-            Minimum="0"
-            Value="{Binding Ram}" />
+            Margin="5,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                Content="{Binding Ram, Converter={StaticResource ByteSizeLabelConverter}}" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                Content="/" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                Content="{Binding RamMax, Converter={StaticResource ByteSizeLabelConverter}}" />
+            <ProgressBar
+                Grid.Row="8"
+                Grid.ColumnSpan="3"
+                VerticalAlignment="Top"
+                Maximum="{Binding RamMax}"
+                Minimum="0"
+                Value="{Binding Ram}" />
+        </Grid>
     </Grid>
 </UserControl>

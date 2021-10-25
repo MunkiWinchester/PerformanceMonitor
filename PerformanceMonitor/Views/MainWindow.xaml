@@ -9,8 +9,8 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:PerformanceMonitor.Views"
-    Width="200"
-    Height="1040"
+    Width="1080"
+    Height="300"
     AllowsTransparency="True"
     BorderThickness="0"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -125,7 +125,7 @@
             </Menu>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    <StackPanel Orientation="Vertical">
+    <!--<StackPanel Orientation="Vertical">
         <views:Clock Margin="0,15,0,0" HorizontalAlignment="Center" />
         <Separator Margin="0,0,0,5" />
         <ha:Mainboard />
@@ -137,5 +137,59 @@
         <ha:GPU Margin="0,0,0,7" />
         <Separator />
         <ha:HDDs />
-    </StackPanel>
+    </StackPanel>-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <views:Clock
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Left" />
+        <ha:Mainboard
+            Grid.Row="0"
+            Grid.Column="2"
+            Grid.ColumnSpan="3" />
+        <Separator
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="6" />
+        <ha:CPU Grid.Row="2" Grid.Column="0" />
+        <StackPanel
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Orientation="Horizontal">
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+        </StackPanel>
+        <ha:GPU
+            Grid.Row="2"
+            Grid.Column="2"
+            Grid.ColumnSpan="2" />
+        <StackPanel
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="4"
+            Orientation="Horizontal">
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="5"
+            Orientation="Vertical">
+            <ha:RAM />
+            <Separator />
+            <ha:HDDs />
+        </StackPanel>
+    </Grid>
 </Controls:MetroWindow>

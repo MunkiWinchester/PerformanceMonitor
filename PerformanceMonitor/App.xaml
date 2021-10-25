@@ -86,7 +86,7 @@
                 <Setter Property="Background" Value="Transparent" />
             </Style>
             <Style TargetType="{x:Type Separator}">
-                <Setter Property="Margin" Value="0,5,0,5" />
+                <Setter Property="Margin" Value="0,0,0,0" />
                 <Setter Property="Background" Value="{StaticResource GrayBrush4}" />
                 <Setter Property="Height" Value="5" />
             </Style>
